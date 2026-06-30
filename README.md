@@ -17,7 +17,7 @@ Entra ID -> Intune -> Step-CA -> FreeRADIUS -> UniFi WiFi
 
 ## Hvad der er inkluderet
 
-- Ubuntu 24.04 setup-script
+- Script til Docker-værtopsætning
 - Docker Compose til Step-CA og FreeRADIUS
 - Portainer-stack uden lokal image-build
 - FreeRADIUS bootstrap via template-baseret konfiguration
@@ -37,7 +37,8 @@ Du har brug for:
 
 ## Start
 
-1. Hvis du bruger en frisk Ubuntu-vært, kan du installere Docker med:
+1. Installer Docker på din host, hvis det ikke allerede er installeret.
+   På Ubuntu kan du bruge `deploy/ubuntu-24.04-setup.sh`:
    ```bash
    chmod +x deploy/ubuntu-24.04-setup.sh
    ./deploy/ubuntu-24.04-setup.sh
