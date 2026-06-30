@@ -9,7 +9,7 @@ services:
       DOCKER_STEPCA_INIT_PASSWORD: ${STEP_CA_INIT_PASSWORD}
       DOCKER_STEPCA_INIT_PROVISIONER_NAME: ${STEP_CA_PROVISIONER_NAME}
     ports:
-      - "${STEP_CA_PORT:-9000}:9000"
+      - "${STEP_CA_PORT:-9100}:9000"
     volumes:
       - ${PORTAINER_DATA_ROOT}/step-ca:/home/step
     networks:
