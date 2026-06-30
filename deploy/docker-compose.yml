@@ -14,6 +14,8 @@ services:
       - "${STEP_CA_PORT:-9000}:9000"
     volumes:
       - ./step-ca/data:/home/step
+    networks:
+      - proxy
 
   freeradius:
     image: freeradius/freeradius-server:3.2.10
@@ -39,3 +41,9 @@ services:
       - ./freeradius/certs:/etc/raddb/certs:ro
     entrypoint: ["/bin/sh", "/usr/local/bin/docker-entrypoint.sh"]
     command: ["freeradius", "-f"]
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    external: true
