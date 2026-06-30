@@ -66,13 +66,15 @@ Hvis du vil køre det i Portainer:
 
 1. Clone repoet på Docker-hosten, fx til `/srv/wifi-ms-logon`
 2. Opret data-mapper til `step-ca` og `freeradius/certs`
-3. Brug [deploy/portainer-stack.yml](/Users/bodiechmann/src/Wifi-MS-logon/deploy/portainer-stack.yml:1) som stack-fil
-4. Brug [deploy/portainer.env.example](/Users/bodiechmann/src/Wifi-MS-logon/deploy/portainer.env.example:1) som skabelon til Portainer miljøvariabler
-5. Følg [deploy/portainer/README.md](/Users/bodiechmann/src/Wifi-MS-logon/deploy/portainer/README.md:1)
+3. Sørg for, at der findes en Docker-netværk `proxy` på hosten (`docker network create proxy` hvis nødvendigt).
+4. Brug [deploy/portainer-stack.yml](deploy/portainer-stack.yml) som stack-fil
+5. Brug [deploy/portainer.env.example](deploy/portainer.env.example) som skabelon til Portainer miljøvariabler
+6. Følg [deploy/portainer/README.md](deploy/portainer/README.md)
 
 ## Docker-noter
 
 - `step-ca` initialiseres automatisk første gang containeren starter, baseret på værdierne i `deploy/.env`
+- Step-CA eksponerer port `9000` som standard. Hvis denne port allerede er i brug på Docker-hosten, kan du ændre den via `STEP_CA_PORT` i `deploy/.env` eller i Portainer-stacken.
 - FreeRADIUS bruger den officielle container og renderer sin konfiguration fra templates ved opstart
 - `deploy/generate-dev-certs.sh` er kun til lokal test og smoke tests
 - I produktion bør FreeRADIUS bruge certifikater udstedt af Step-CA, så tillidskæden matcher den, der distribueres via Intune

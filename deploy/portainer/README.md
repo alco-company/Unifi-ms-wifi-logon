@@ -14,8 +14,11 @@ Denne stack-variant er lavet til Portainer, så du kan deploye uden lokal Docker
 4. Sæt:
    - `PORTAINER_REPO_ROOT=/srv/wifi-ms-logon/deploy`
    - `PORTAINER_DATA_ROOT=/srv/wifi-ms-logon-data`
+   - `STEP_CA_PORT=9000` (eller et andet frit host-portnummer)
 5. Læg `ca.pem`, `server.pem` og `dh` i `${PORTAINER_DATA_ROOT}/freeradius/certs`
 6. Deploy `deploy/portainer-stack.yml` som en stack i Portainer
+
+Hvis du får en fejl om "port is already allocated" på port 9000, skal du vælge et andet frit portnummer for `STEP_CA_PORT` i Portainer-stacken.
 
 ## Vigtige noter
 
