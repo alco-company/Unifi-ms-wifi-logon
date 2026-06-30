@@ -14,7 +14,7 @@ services:
       - ${PORTAINER_DATA_ROOT}/step-ca:/home/step
 
   freeradius:
-    image: freeradius/freeradius-server:3.2
+    image: freeradius/freeradius-server:3.2.10
     container_name: freeradius
     restart: unless-stopped
     depends_on:

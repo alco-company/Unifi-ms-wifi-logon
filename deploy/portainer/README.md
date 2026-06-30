@@ -19,7 +19,7 @@ Denne stack-variant er lavet til Portainer, så du kan deploye uden lokal Docker
 
 ## Vigtige noter
 
-- Denne variant bruger den officielle `freeradius/freeradius-server:3.2`-container direkte
+- Denne variant bruger den officielle `freeradius/freeradius-server:3.2.10`-container direkte
 - FreeRADIUS-konfigurationen renderes ved opstart fra templates i repoet
 - Hvis du opdaterer template-filerne i repoet, bør du redeploye stacken
 - Hvis du vil bruge udviklingscertifikater, kan de genereres lokalt med `deploy/generate-dev-certs.sh` og derefter kopieres til data-mappen på Docker-hosten
