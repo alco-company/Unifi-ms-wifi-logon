@@ -1,0 +1,23 @@
+eap {
+    default_eap_type = tls
+    timer_expire = 60
+    ignore_unknown_eap_types = no
+    cisco_accounting_username_bug = no
+
+    tls-config tls-common {
+        private_key_password = whatever
+        private_key_file = __RADIUS_CERTS_DIR__/server.pem
+        certificate_file = __RADIUS_CERTS_DIR__/server.pem
+        ca_file = __RADIUS_CERTS_DIR__/ca.pem
+        dh_file = __RADIUS_CERTS_DIR__/dh
+        random_file = /dev/urandom
+        check_cert_cn = no
+        fragment_size = 1024
+        include_length = yes
+        auto_chain = yes
+    }
+
+    tls {
+        tls = tls-common
+    }
+}

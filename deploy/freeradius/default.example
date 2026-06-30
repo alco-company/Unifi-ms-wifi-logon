@@ -1,0 +1,20 @@
+server default {
+    listen {
+        type = auth
+        ipaddr = *
+        port = 0
+    }
+
+    authorize {
+        filter_username
+        suffix
+        eap
+    }
+
+    authenticate {
+        Auth-Type PAP {
+            pap
+        }
+        eap
+    }
+}

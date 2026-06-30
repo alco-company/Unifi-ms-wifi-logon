@@ -1,0 +1,41 @@
+services:
+  step-ca:
+    image: smallstep/step-ca:latest
+    container_name: step-ca
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      DOCKER_STEPCA_INIT_NAME: ${STEP_CA_INIT_NAME}
+      DOCKER_STEPCA_INIT_DNS_NAMES: ${STEP_CA_INIT_DNS_NAMES}
+      DOCKER_STEPCA_INIT_PASSWORD: ${STEP_CA_INIT_PASSWORD}
+      DOCKER_STEPCA_INIT_PROVISIONER_NAME: ${STEP_CA_PROVISIONER_NAME}
+    ports:
+      - "${STEP_CA_PORT:-9000}:9000"
+    volumes:
+      - ./step-ca/data:/home/step
+
+  freeradius:
+    image: freeradius/freeradius-server:3.2
+    container_name: freeradius
+    restart: unless-stopped
+    depends_on:
+      - step-ca
+    env_file:
+      - .env
+    environment:
+      RADIUS_SECRET: ${RADIUS_SECRET}
+      UNIFI_CONTROLLER_IP: ${UNIFI_CONTROLLER_IP}
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - "${UNIFI_RADIUS_PORT:-1812}:1812/udp"
+      - "${UNIFI_ACCOUNTING_PORT:-1813}:1813/udp"
+    volumes:
+      - ./freeradius/docker-entrypoint.sh:/usr/local/bin/docker-entrypoint.sh:ro
+      - ./freeradius/clients.conf.template:/opt/freeradius/templates/clients.conf.template:ro
+      - ./freeradius/eap.conf.template:/opt/freeradius/templates/eap.conf.template:ro
+      - ./freeradius/default.template:/opt/freeradius/templates/default.template:ro
+      - ./freeradius/certs:/etc/raddb/certs:ro
+    entrypoint: ["/bin/sh", "/usr/local/bin/docker-entrypoint.sh"]
+    command: ["freeradius", "-f"]

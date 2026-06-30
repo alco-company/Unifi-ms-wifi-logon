@@ -1,0 +1,5 @@
+client unifi-controller {
+    ipaddr = __UNIFI_CONTROLLER_IP__
+    secret = __RADIUS_SECRET__
+    nastype = other
+}
